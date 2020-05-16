@@ -1,0 +1,33 @@
+@using BankAccounts.Models;
+@model TransactionModel
+
+<h1>SUCCESSFUL! WOW</h1>
+<a href="logout">Logout</a>
+
+<h1>Welcome @ViewBag.User.FirstName @ViewBag.User.LastName</h1>
+Current Balance: @ViewBag.User.Balance
+
+
+<form asp-action="PerformTransaction" asp-controller="Home" method="post">
+    <span asp-validation-for="Amount"></span><br>
+    <label asp-for="Amount"></label>
+    <input type="number" asp-for="Amount" >
+    <button type="submit">Submit</button>
+</form>
+<h2>Transaction History</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Amont</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    @for (int i =  @ViewBag.User.Transactions.Count-1; i >=0; i--) {
+        <tr>
+        <th scope="col">@ViewBag.User.Transactions[i].Amount</th>
+        <th scope="col">@ViewBag.User.Transactions[i].CreatedAt.ToString("MM/dd/yyyy") </th>
+    </tr>
+
+    }
+</table>
+
